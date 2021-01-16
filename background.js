@@ -1,6 +1,5 @@
 var leftWing = ['cnn', 'msnbc', 'theguardian'];
 var rightWing = ['foxnews', 'nypost', 'wsj'];
-var article = false;
 
 chrome.tabs.onActivated.addListener(tab => {
     chrome.tabs.get(tab.tabId, current_tab => {
@@ -10,7 +9,7 @@ chrome.tabs.onActivated.addListener(tab => {
             site = leftWing[i];
             if (url.includes(site)) {
                 console.log("This is leftwing");
-                chrome.pageAction.show(current_tab.tabId);
+                chrome.pageAction.show(tab.tabId);
             }
         }
         for (let j = 0; j < rightWing.length; j++) {
@@ -21,4 +20,3 @@ chrome.tabs.onActivated.addListener(tab => {
         }
     });
 });
-
