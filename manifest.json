@@ -10,6 +10,12 @@
     "page_action": {
         "default_popup": "popup/popup.html"
     },
-    "permissions": ["tabs", "activeTab", "declarativeContent", "storage"]
+    "permissions": ["tabs", "activeTab", "declarativeContent", "storage"],
+    "content_scripts": [
+        {
+            "matches": ["http://*/*"],
+            "js": ["article_content_script.js"]
+        }
+    ]
 
 }
