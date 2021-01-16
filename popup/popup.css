@@ -21,3 +21,10 @@ div.fadeIn {
     pointer-events: all;
 }
 
+.noClick {
+    pointer-events: none;
+}
+
+.allowClick {
+    pointer-events: all;
+}

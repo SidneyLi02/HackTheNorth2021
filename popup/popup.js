@@ -6,13 +6,21 @@ const run = () => {
     const findSimilar = document.querySelectorAll('.extension-body button')[1];
 
     findOppose.addEventListener("click", () => {
-        popupBody.classList.add("fadeOut");
+        if (findSimilar.classList.contains("noClick")) {
+            findSimilar.classList.remove("noClick")
+        }
+        findOppose.classList.add("noClick");
+        // popupBody.classList.add("fadeOut");
         resultsBody.classList.remove("fadeOut");
 
     })
     
     findSimilar.addEventListener("click", () => {
-        popupBody.classList.add("fadeOut");
+        if (findOppose.classList.contains("noClick")) {
+            findOppose.classList.remove("noClick");
+        }
+        findSimilar.classList.add("noClick")
+        //popupBody.classList.add("fadeOut");
         resultsBody.classList.remove("fadeOut");
     })
 
