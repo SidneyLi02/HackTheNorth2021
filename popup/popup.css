@@ -9,3 +9,15 @@ body {
     padding: 10px;
     text-align: center;
 }
+
+/* for buttons once event listener is toggled */
+div.fadeOut {
+    opacity: 0;
+    pointer-events: none;
+}
+
+div.fadeIn {
+    opacity: 100;
+    pointer-events: all;
+}
+
