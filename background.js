@@ -24,7 +24,7 @@ let determineArticle = function(tabId, current_tab) {
         if (url.includes(site)) {
             bias = 'leftWing';
             chrome.pageAction.show(tabId);
-            // put the title of the article and the domain name into storage before executing this script
+            // put the title of the article and the domain name and opposing view array into storage before executing this script
             chrome.tabs.executeScript(null, {file: './article_content_script.js'}, () => console.log("script injected"));
         }
     }
@@ -33,7 +33,7 @@ let determineArticle = function(tabId, current_tab) {
         if (url.includes(site)) {
             bias = 'rightWing';
             chrome.pageAction.show(tabId);
-            // put the title of the article and the domain name into storage before executing this script
+            // put the title of the article and the domain name and opposing view array into storage before executing this script
             chrome.tabs.executeScript(null, {file: './article_content_script.js'}, () => console.log("script injected"));
         }
     }

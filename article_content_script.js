@@ -1,4 +1,4 @@
-// domainName and title should come from storage
+// domainName and title and arrOpposing should come from storage
 
 function httpGetAsync(theUrl, callback)
 {
