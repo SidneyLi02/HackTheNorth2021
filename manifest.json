@@ -1,6 +1,6 @@
 {
     "name": "news-extension",
-    "version": "beta",
+    "version": "0.0.1",
     "description": "lorem ipsum",
     "manifest_version": 2,
     "background": {
