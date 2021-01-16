@@ -1,3 +1,5 @@
+// domainName and title should come from storage
+
 function httpGetAsync(theUrl, callback)
 {
     var xmlHttp = new XMLHttpRequest();
@@ -17,8 +19,8 @@ results = json.parse(httpGetAsync(req_url));
 const arr = [];
 for (let i = 1; i<=10; i++) {
     if (condition) { // condition is placeholder for checking if the webpage is opposing view
-        arr.append(results.items[i].formattedUrl);
+        arr.push(results.items[i].formattedUrl);
     }
 }
 
-// then display however many elements from arr in the popup
+// send arr to storage
