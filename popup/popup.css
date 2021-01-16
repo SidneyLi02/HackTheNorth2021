@@ -10,11 +10,11 @@ body {
     text-align: center;
 }
 
-/* for buttons once event listener is toggled */
-div.fadeOut {
-    opacity: 0;
+.fadeIn {
+    opacity: 100;
 }
 
-div.fadeIn {
-    opacity: 100;
+/* for buttons once event listener is toggled */
+.fadeOut {
+    opacity: 0;
 }
