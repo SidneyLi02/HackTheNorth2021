@@ -1,33 +1,13 @@
-var xmlHttp;
+var xmlHttp = new XMLHttpRequest();;
 var arrOpposing;
 var arrAgreeing;
 var domainName;
 var title;
-
-chrome.runtime.onMessage.addListener(
-    function(request, sender, sendResponse) {
-      switch(request.type) {
-          case "sendArticleInfo":
-            if (request.bias == "leftWing") {
-                arrAgreeing = request.leftWing;
-                arrOpposing = request.rightWing;
-            } else {
-                arrAgreeing = request.rightWing;
-                arrOpposing = request.lefttWing;
-            }
-            title = request.title;
-            domainName = request.domain;
-          case "displayOtherArticles":
-              sendResponse({agree: agreeArr, oppose: oppArr});
-          default:
-              console.log("Unrecognized message: ", request);
-      }
-    }
-  );
+let agreeArr = [];
+let oppArr = [];
 
 function httpGetAsync(theUrl, callback)
 {
-    xmlHttp = new XMLHttpRequest();
       xmlHttp.onreadystatechange = function() { 
           if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
               callback(xmlHttp.responseText);
@@ -39,8 +19,8 @@ function httpGetAsync(theUrl, callback)
 
 let reqUrl = 'https://www.googleapis.com/customsearch/v1?cx=b84518462114f3218&excludeTerms='+(domainName)+'&lr=%22lang_en%22&q='+(title)+
 '&key=AIzaSyDAFluHuEtmYiWUpN6uKWgIQSuWXLmtDsA&cxb84518462114f3218';
-
-httpGetAsync(reqUrl);
+const testingFunc = (a) => console.log(a);
+httpGetAsync(reqUrl, testingFunc);
 results = JSON.parse(xmlHttp.responseText);
 console.log("Api has been called");
 console.log(results);
@@ -71,16 +51,35 @@ function isSameView(index)
     return acc;
 }
 
-const oppArr = [];
+
 for (let i = 1; i<=50; i++) {
     if (isOpposingView(i)) { // checking if the webpage is opposing view
         oppArr.push({link: results.items[i].link, title: results.items[i].title});
     }
 }
-
-const agreeArr = [];
 for (let i = 1; i<=50; i++) {
     if (isSameView(i)) { // checking if the webpage is same view
         agreeArr.push({link: results.items[i].link, title: results.items[i].title});
     }
 }
+
+chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+      switch(request.type) {
+          case "sendArticleInfo":
+            if (request.bias == "leftWing") {
+                arrAgreeing = request.leftWing;
+                arrOpposing = request.rightWing;
+            } else {
+                arrAgreeing = request.rightWing;
+                arrOpposing = request.lefttWing;
+            }
+            title = request.title;
+            domainName = request.domain;
+          case "displayOtherArticles":
+              sendResponse({agree: agreeArr, oppose: oppArr});
+          default:
+              console.log("Unrecognized message: ", request);
+      }
+    }
+  );
