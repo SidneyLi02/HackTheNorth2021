@@ -6,11 +6,13 @@ var title;
 let agreeArr = [];
 let oppArr = [];
 
-function httpGetAsync(theUrl, callback)
+function httpGetAsync(theUrl)
 {
       xmlHttp.onreadystatechange = function() { 
           if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-              callback(xmlHttp.responseText);
+            results = JSON.parse(xmlHttp.responseText);
+            console.log("Api has been called");
+            callBackTest();
       }
       xmlHttp.open("GET", theUrl, true);
       xmlHttp.send(null);
@@ -19,12 +21,15 @@ function httpGetAsync(theUrl, callback)
 
 let reqUrl = 'https://www.googleapis.com/customsearch/v1?cx=b84518462114f3218&excludeTerms='+(domainName)+'&lr=%22lang_en%22&q='+(title)+
 '&key=AIzaSyDAFluHuEtmYiWUpN6uKWgIQSuWXLmtDsA&cxb84518462114f3218';
-const testingFunc = (a) => console.log(a);
-httpGetAsync(reqUrl, testingFunc);
+//const testingFunc = (a) => console.log(a);
+httpGetAsync(reqUrl);
+//results = JSON.parse(xmlHttp.responseText);
+//console.log("Api has been called");
+//console.log(results);
+function callBackTest() {
 results = JSON.parse(xmlHttp.responseText);
 console.log("Api has been called");
 console.log(results);
-
 function isOpposingView(index)
 {
     let acc = true;
@@ -62,7 +67,7 @@ for (let i = 1; i<=50; i++) {
         agreeArr.push({link: results.items[i].link, title: results.items[i].title});
     }
 }
-
+}
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
       switch(request.type) {
