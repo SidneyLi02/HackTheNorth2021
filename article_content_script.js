@@ -1,33 +1,34 @@
 var agreeArr = [];
 var oppArr = [];
 
-function isOpposingView(index, arr, results)
+function isOpposingView(index, arr, results, domain)
 {
     let acc = true;
     for (let i = 0; i<arr.length; i++) {
-        if (results.items[index].displayLink.includes(arr[i])) {
+        if ((results.items[index].displayLink.includes(arr[i])) || (results.items[index].displayLink.includes(domain)))  {
             acc = acc && false;
         } else {
             acc = acc && true;
         }
     }
-    //return acc;
-    return true;
+    return acc;
+    //return true;
 }
 
-function isSameView(index, arr, results)
+function isSameView(index, arr, results, domain)
 {
     let acc = true;
     for (let i = 0; i<arr.length; i++) {
-        if (results.items[index].displayLink.includes(arr[i])) {
+        if ((results.items[index].displayLink.includes(arr[i])) || !(results.items[index].displayLink.includes(domain))) {
             acc = acc && true;
         } else {
             acc = acc && false;
         }
     }
-    //return acc;
-    return true;
+    return acc;
+    //return true;
 }
+
 
 function establishPort(port) {
     
@@ -55,23 +56,22 @@ chrome.runtime.onMessage.addListener(
                 arrAgreeing = request.rightWing;
                 arrOpposing = request.lefttWing;
             }
-            title = request.title;
-            domainName = request.domain;
+            title = escape(request.title);
+            domainName = escape(request.domain);
 
             console.log("doing fetch");
-            fetch('https://www.googleapis.com/customsearch/v1?cx=b84518462114f3218&excludeTerms='+(domainName)+'&lr=%22lang_en%22&q='+(title)+
-            '&key=AIzaSyAN9T4IMNPdjBzHM6lEjHgSQ71eQCc3tfA')
+            fetch(`https://www.googleapis.com/customsearch/v1?cx=b84518462114f3218&lr=%22lang_en%22&q=${title}&key=AIzaSyAN9T4IMNPdjBzHM6lEjHgSQ71eQCc3tfA`)
   .then(response => response.json())
   .then(data => {
     console.log(data);
     let limit = Math.min(20, data.items.length);
     for (let i = 0; i<limit; i++) {
-        if (isOpposingView(i, arrAgreeing, data)) { // checking if the webpage is opposing view
+        if (isOpposingView(i, arrAgreeing, data, domainName)) { // checking if the webpage is opposing view
             oppArr.push({link: data.items[i].link, title: data.items[i].title});
         }
     }
     for (let i = 0; i<limit; i++) {
-        if (isSameView(i, arrOpposing, data)) { // checking if the webpage is same view
+        if (isSameView(i, arrAgreeing, data, domainName)) { // checking if the webpage is same view
             agreeArr.push({link: data.items[i].link, title: data.items[i].title});
         }
     }
