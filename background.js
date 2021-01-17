@@ -1,5 +1,9 @@
 var leftWing = ['cnn', 'msnbc', 'theguardian'];
 var rightWing = ['foxnews', 'nypost', 'wsj'];
+
+//var leftWing = ['www.cnn.com', 'www.msnbc.com', 'www.theguardian.com'];
+//var rightwing = ['www.foxnews.com', 'nypost.com', 'www.wsj.com'];
+
 var bias;
 var title;
 var domain;
@@ -26,12 +30,17 @@ let determineArticle = function(tabId, current_tab) {
         if (url.includes(site)) {
             bias = 'leftWing';
             chrome.pageAction.show(tabId);
+
             title = current_tab.title;
             domain = getDomainName(url);
             chrome.tabs.executeScript(null, {file: './article_content_script.js'}, () => {
                 console.log("script injected");
                 connect();
             });
+
+            // put the title of the article and the domain name and agreeing view array into storage before executing this script
+            chrome.tabs.executeScript(null, {file: './article_content_script.js'}, () => console.log("script injected"));
+
         }
     }
     for (let j = 0; j < rightWing.length; j++) {
@@ -39,12 +48,17 @@ let determineArticle = function(tabId, current_tab) {
         if (url.includes(site)) {
             bias = 'rightWing';
             chrome.pageAction.show(tabId);
+
             title = current_tab.title;
             domain = getDomainName(url);
             chrome.tabs.executeScript(null, {file: './article_content_script.js'}, () => {
                 console.log("script injected");
                 connect();
             });
+
+            // put the title of the article and the domain name and agreeing view array into storage before executing this script
+            chrome.tabs.executeScript(null, {file: './article_content_script.js'}, () => console.log("script injected"));
+
         }
     }
 }
