@@ -4,6 +4,20 @@ var arrAgreeing;
 var domainName;
 var title;
 
+var obtainedResults = false;
+
+chrome.runtime.onConnect.addListener(function(port) {
+    console.assert(port.name == "otherArticles");
+    port.onMessage.addListener(function(msg) {
+        if (msg.type == "displayOtherArticles") {
+            if (obtainedResults == true) {
+                port.postMessage({type: "sentResults", agree: agreeArr, oppose: oppArr});
+            }
+        }
+    });
+  });
+
+
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
       switch(request.type) {
@@ -17,8 +31,6 @@ chrome.runtime.onMessage.addListener(
             }
             title = request.title;
             domainName = request.domain;
-          case "displayOtherArticles":
-              sendResponse({agree: agreeArr, oppose: oppArr});
           default:
               console.log("Unrecognized message: ", request);
       }
