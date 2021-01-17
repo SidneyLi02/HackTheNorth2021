@@ -86,10 +86,11 @@ function connect() {
             domain: domain,
             bias: bias,
             leftWing: leftWing,
-            rightWing: rightWing,
+            rightWing: rightWing
         }, 
         function(response) {
           console.log(response.farewell);
+
         });
       });
 }
