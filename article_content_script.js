@@ -1,4 +1,4 @@
-const xmlHttp = new XMLHttpRequest();
+var xmlHttp;
 var arrOpposing;
 var arrAgreeing;
 var domainName;
@@ -27,19 +27,21 @@ chrome.runtime.onMessage.addListener(
 
 function httpGetAsync(theUrl, callback)
 {
-    xmlHttp.onreadystatechange = function() { 
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-            callback(xmlHttp.responseText);
+    xmlHttp = new XMLHttpRequest();
+      xmlHttp.onreadystatechange = function() { 
+          if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+              callback(xmlHttp.responseText);
+      }
+      xmlHttp.open("GET", theUrl, true);
+      xmlHttp.send(null);
     }
-    xmlHttp.open("GET", theUrl, true);
-    xmlHttp.send(null);
 }
 
 const reqUrl = 'https://www.googleapis.com/customsearch/v1?cx=b84518462114f3218&excludeTerms='+(domainName)+'&lr=%22lang_en%22&q='+(title)+
 '&key=AIzaSyDAFluHuEtmYiWUpN6uKWgIQSuWXLmtDsA&cxb84518462114f3218';
 
 httpGetAsync(reqUrl);
-results = json.parse(xmlHttp.responseText);
+results = JSON.parse(xmlHttp.responseText);
 
 function isOpposingView(index)
 {
