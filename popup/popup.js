@@ -47,6 +47,7 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
             var linkText = document.createTextNode(titleText);
             a.appendChild(linkText);
             a.href = articleLink;
+            a.setAttribute('target', '_blank');
             itemList.appendChild(a)
             newsLinks.appendChild(itemList)
         }
@@ -80,6 +81,7 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
             var linkText = document.createTextNode(titleText);
             a.appendChild(linkText);
             a.href = articleLink;
+            a.setAttribute('target', '_blank');
             itemList.appendChild(a)
             newsLinks.appendChild(itemList)
         }
