@@ -1,4 +1,4 @@
-var xmlHttp;
+var xmlHttp = new XMLHttpRequest();;
 var arrOpposing;
 var arrAgreeing;
 var domainName;
@@ -8,7 +8,6 @@ let oppArr = [];
 
 function httpGetAsync(theUrl, callback)
 {
-    xmlHttp = new XMLHttpRequest();
       xmlHttp.onreadystatechange = function() { 
           if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
               callback(xmlHttp.responseText);
@@ -20,8 +19,8 @@ function httpGetAsync(theUrl, callback)
 
 let reqUrl = 'https://www.googleapis.com/customsearch/v1?cx=b84518462114f3218&excludeTerms='+(domainName)+'&lr=%22lang_en%22&q='+(title)+
 '&key=AIzaSyDAFluHuEtmYiWUpN6uKWgIQSuWXLmtDsA&cxb84518462114f3218';
-
-httpGetAsync(reqUrl);
+const testingFunc = (a) => console.log(a);
+httpGetAsync(reqUrl, testingFunc);
 results = JSON.parse(xmlHttp.responseText);
 console.log("Api has been called");
 console.log(results);
