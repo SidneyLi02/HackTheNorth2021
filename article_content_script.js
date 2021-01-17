@@ -11,7 +11,8 @@ function isOpposingView(index, arr, results)
             acc = acc && true;
         }
     }
-    return acc;
+    //return acc;
+    return true;
 }
 
 function isSameView(index, arr, results)
@@ -24,7 +25,8 @@ function isSameView(index, arr, results)
             acc = acc && false;
         }
     }
-    return acc;
+    //return acc;
+    return true;
 }
 
 function establishPort(port) {
@@ -35,9 +37,9 @@ chrome.runtime.onConnect.addListener(function(port) {
     port.onMessage.addListener(function(msg) {
         console.log("received message");
         if (msg.type == "displayOtherArticles") {
-            if (oppArr.length != 0 || agreeArr.length != 0){
+            //if (oppArr.length != 0 || agreeArr.length != 0){
                 port.postMessage({type: "sentResults", agree: agreeArr, oppose: oppArr});
-            }
+            //}
         }
     });
   });
@@ -58,17 +60,17 @@ chrome.runtime.onMessage.addListener(
 
             console.log("doing fetch");
             fetch('https://www.googleapis.com/customsearch/v1?cx=b84518462114f3218&excludeTerms='+(domainName)+'&lr=%22lang_en%22&q='+(title)+
-            '&key=AIzaSyDAFluHuEtmYiWUpN6uKWgIQSuWXLmtDsA&cxb84518462114f3218')
+            '&key=AIzaSyAN9T4IMNPdjBzHM6lEjHgSQ71eQCc3tfA')
   .then(response => response.json())
   .then(data => {
     console.log(data);
-    
-    for (let i = 0; i<=0; i++) {
+    let limit = Math.min(20, data.items.length);
+    for (let i = 0; i<limit; i++) {
         if (isOpposingView(i, arrAgreeing, data)) { // checking if the webpage is opposing view
             oppArr.push({link: data.items[i].link, title: data.items[i].title});
         }
     }
-    for (let i = 0; i<=0; i++) {
+    for (let i = 0; i<limit; i++) {
         if (isSameView(i, arrOpposing, data)) { // checking if the webpage is same view
             agreeArr.push({link: data.items[i].link, title: data.items[i].title});
         }
