@@ -10,6 +10,7 @@ const run = () => {
     var arrAgreeing;
     var arrOpposing;
 
+
 chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     var port = chrome.tabs.connect(tabs[0].id, {name: "otherArticles"});
     port.postMessage({type: "displayOtherArticles"});
@@ -21,14 +22,7 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         }
     });
 });
-
-/*chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-    chrome.tabs.sendMessage(tabs[0].id, {type: "displayOtherArticles"}, function(response) {
-        arrAgreeing = response.agree;
-        arrOpposing = response.oppose;
-    });
-});*/
-  
+ 
     findOppose.addEventListener("click", () => {
         if (findSimilar.classList.contains("noClick")) {
             findSimilar.classList.remove("noClick")
