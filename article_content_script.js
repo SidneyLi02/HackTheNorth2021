@@ -18,22 +18,24 @@ chrome.runtime.onMessage.addListener(
       domainName = request.domain;
     }
   );
+  console.log(arrAgreeing);
 
-function httpGetAsync(theUrl, callback)
-{
-    xmlHttp.onreadystatechange = function() { 
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-            callback(xmlHttp.responseText);
-    }
-    xmlHttp.open("GET", theUrl, true);
-    xmlHttp.send(null);
-}
+  function httpGetAsync(theUrl, callback)
+  {
+      var xmlHttp = new XMLHttpRequest();
+      xmlHttp.onreadystatechange = function() { 
+          if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+              callback(xmlHttp.responseText);
+      }
+      xmlHttp.open("GET", theUrl, true);
+      xmlHttp.send(null);
+  }
 
 const reqUrl = 'https://www.googleapis.com/customsearch/v1?cx=b84518462114f3218&excludeTerms='+(domainName)+'&lr=%22lang_en%22&q='+(title)+
 '&key=AIzaSyDAFluHuEtmYiWUpN6uKWgIQSuWXLmtDsA&cxb84518462114f3218';
 
-httpGetAsync(reqUrl);
-results = json.parse(xmlHttp.responseText);
+httpGetAsync(reqUrl, (x) => console.log(x));
+results = JSON.parse(xmlHttp.responseText);
 console.log(results);
 
 function isOpposingView(index)

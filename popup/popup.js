@@ -12,8 +12,8 @@ const run = () => {
 
     chrome.runtime.onMessage.addListener(
         function(request, sender, sendResponse) {
-          arrAgreeing = request.arrAgreeing;
-          arrOpposing = request.arrOpposing;
+          arrAgreeing = request.agreeArr;
+          arrOpposing = request.oppArr;
         }
       );
      
