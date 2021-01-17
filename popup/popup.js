@@ -7,6 +7,8 @@ const run = () => {
     const newsLinks = document.querySelector(".newsLinks");
     var opposeToggle = false;
     var similarToggle = false;
+    const arrAgreeing;
+    const arrOpposing;
 
     chrome.runtime.onMessage.addListener(
         function(request, sender, sendResponse) {
@@ -14,7 +16,7 @@ const run = () => {
           arrOpposing = request.arrOpposing;
         }
       );
-      
+     
     findOppose.addEventListener("click", () => {
         if (findSimilar.classList.contains("noClick")) {
             findSimilar.classList.remove("noClick")
@@ -31,13 +33,22 @@ const run = () => {
         }
 
         // adding 
-        var itemList = document.createElement("LI");
-        var a = document.createElement('a');
-        var linkText = document.createTextNode('my title text');
-        a.appendChild(linkText);
-        a.href = "example.com";
-        itemList.appendChild(a)
-        newsLinks.appendChild(itemList)
+        if (arrAgreeing.length != 0) {
+
+            let temp = arrAgreeing.shift();
+
+            var itemList = document.createElement("LI");
+            var a = document.createElement('a');
+            
+            let titleText = temp.title
+            let articleLink = temp.link
+
+            var linkText = document.createTextNode(titleText);
+            a.appendChild(linkText);
+            a.href = articleLink;
+            itemList.appendChild(a)
+            newsLinks.appendChild(itemList)
+        }
     })
     
     findSimilar.addEventListener("click", () => {
@@ -55,14 +66,22 @@ const run = () => {
             opposeToggle = false;
         }
 
-        // adding 
-        var itemList = document.createElement("LI");
-        var a = document.createElement('a');
-        var linkText = document.createTextNode('my title text');
-        a.appendChild(linkText);
-        a.href = "example.com";
-        itemList.appendChild(a)
-        newsLinks.appendChild(itemList)
+        if (arrOpposing.length != 0) {
+            // adding 
+
+            let temp = arrOpposing.shift();
+
+            let titleText = temp.title
+            let articleLink = temp.link
+
+            var itemList = document.createElement("LI");
+            var a = document.createElement('a');
+            var linkText = document.createTextNode(titleText);
+            a.appendChild(linkText);
+            a.href = articleLink;
+            itemList.appendChild(a)
+            newsLinks.appendChild(itemList)
+        }
     })
 
 }
