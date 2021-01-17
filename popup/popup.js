@@ -34,8 +34,12 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         opposeToggle = true;
 
         if (initState === 0 && arrAgreeing.length === 0) {
-            var defaultText = document.createTextNode("There is none.");
-            newsLinks.appendChild(defaultText)
+
+            let b = document.createElement('a');
+            let defaultText = document.createTextNode("No search results were found.");
+            b.appendChild(defaultText);
+            b.href = "https://www.factcheck.org/";
+            newsLinks.appendChild(b)
             findOppose.classList.add("noClick");
         }
 
@@ -77,8 +81,12 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         similarToggle = true;
 
         if (initState === 0 && arrOpposing.length === 0) {
-            var defaultText = document.createTextNode("There is none.");
-            newsLinks.appendChild(defaultText)
+
+            let b = document.createElement('a');
+            let defaultText = document.createTextNode("No search results were found.");
+            b.appendChild(defaultText);
+            b.href = "https://www.factcheck.org/";
+            newsLinks.appendChild(b)
             findSimilar.classList.add("noClick");
         }
 
