@@ -1,8 +1,26 @@
-// domainName and title and arrAgreeing should come from storage
+const xmlHttp = new XMLHttpRequest();
+const arrOpposing;
+const arrAgreeing;
+const domainName;
+const title;
+
+chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+      console.log(request.domain);
+      if (request.bias == "leftWing") {
+          arrAgreeing = request.leftWing;
+          arrOpposing = request.rightWing;
+      } else {
+          arrAgreeing = request.rightWing;
+          arrOpposing = request.lefttWing;
+      }
+      title = request.title;
+      domainName = request.domain;
+    }
+  );
 
 function httpGetAsync(theUrl, callback)
 {
-    var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() { 
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
             callback(xmlHttp.responseText);
@@ -11,10 +29,11 @@ function httpGetAsync(theUrl, callback)
     xmlHttp.send(null);
 }
 
-req_url = 'https://www.googleapis.com/customsearch/v1?cx=b84518462114f3218&excludeTerms='+(domainName)+'&lr=%22lang_en%22&q='+(title)+
+const reqUrl = 'https://www.googleapis.com/customsearch/v1?cx=b84518462114f3218&excludeTerms='+(domainName)+'&lr=%22lang_en%22&q='+(title)+
 '&key=AIzaSyDAFluHuEtmYiWUpN6uKWgIQSuWXLmtDsA&cxb84518462114f3218';
 
-results = json.parse(httpGetAsync(req_url));
+httpGetAsync(reqUrl);
+results = json.parse(xmlHttp.responseText);
 
 function isOpposingView(index)
 {
@@ -56,21 +75,17 @@ for (let i = 1; i<=50; i++) {
     }
 }
 
+/*
+function connect() {
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, {
+            agreeArr: agreeArr,
+            oppArr: oppArr
+        });
+      });
+}
+connect();
+*/
 
-// send arr to storage
-
-
-chrome.runtime.onMessage.addListener(
-    function(request, sender, sendResponse) {
-      console.log(request.domain);
-      if (request.bias == "leftWing") {
-        sendResponse({farewell: "Trump sucks"});
-      }
-      else {
-          sendResponse({farewell: "Trump rules"});
-      }
-    }
-  );
-
+chrome.runtime.sendMessage({agreArr: agreeArr, oppArr: oppArr});
 // send oppArr and agreeArr to storage
-
