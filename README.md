@@ -1,4 +1,4 @@
-# Unbias Me
+# Bye Bye Bias
 A chrome extension that encourages more holistic news article consumption by recommending articles from similar or opposing viewpoints.
 ## Motivation
 In an age where most of our media consumption is online, it is important to recognize the danger of recommendation algorithms when it comes to the news. Too often, we end up reading articles upon articles which all share the same perspective, leading to the proliferation of hyperpartisanship in society. Unbias Me was designed to help readers easily consider similar and opposing viewpoints on the same issue by providing easy access to related articles. We hope Unbias Me can encourage people to become more informed about bias in the media so that they can fight it accordingly.
