@@ -7,8 +7,8 @@ const run = () => {
     const newsLinks = document.querySelector(".newsLinks");
     var opposeToggle = false;
     var similarToggle = false;
-    const arrAgreeing;
-    const arrOpposing;
+    let arrAgreeing;
+    let arrOpposing;
 
     chrome.runtime.onMessage.addListener(
         function(request, sender, sendResponse) {
