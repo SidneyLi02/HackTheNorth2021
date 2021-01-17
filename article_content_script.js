@@ -1,21 +1,28 @@
-let xmlHttp = new XMLHttpRequest();
-let arrOpposing;
-let arrAgreeing;
-let domainName;
-let title;
+const xmlHttp = new XMLHttpRequest();
+var arrOpposing;
+var arrAgreeing;
+var domainName;
+var title;
+
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
-      console.log(request.domain);
-      if (request.bias == "leftWing") {
-          arrAgreeing = request.leftWing;
-          arrOpposing = request.rightWing;
-      } else {
-          arrAgreeing = request.rightWing;
-          arrOpposing = request.lefttWing;
+      switch(request.type) {
+          case "sendArticleInfo":
+            if (request.bias == "leftWing") {
+                arrAgreeing = request.leftWing;
+                arrOpposing = request.rightWing;
+            } else {
+                arrAgreeing = request.rightWing;
+                arrOpposing = request.lefttWing;
+            }
+            title = request.title;
+            domainName = request.domain;
+          case "displayOtherArticles":
+              sendResponse({agree: arrAgreeing, oppose: arrOpposing});
+          default:
+              console.log("Unrecognized message: ", request);
       }
-      title = request.title;
-      domainName = request.domain;
     }
   );
   console.log(arrAgreeing);
@@ -90,5 +97,9 @@ function connect() {
 connect();
 */
 
-chrome.runtime.sendMessage({agreArr: agreeArr, oppArr: oppArr});
+/*chrome.runtime.sendMessage({agreArr: agreeArr, oppArr: oppArr, greeting: "hello"}, function(response) {
+    console.log(response.farewell);
+});
 // send oppArr and agreeArr to storage
+
+*/
