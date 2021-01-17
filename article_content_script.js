@@ -1,8 +1,8 @@
-const xmlHttp = new XMLHttpRequest();
-const arrOpposing;
-const arrAgreeing;
-const domainName;
-const title;
+let xmlHttp = new XMLHttpRequest();
+let arrOpposing;
+let arrAgreeing;
+let domainName;
+let title;
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
@@ -34,6 +34,7 @@ const reqUrl = 'https://www.googleapis.com/customsearch/v1?cx=b84518462114f3218&
 
 httpGetAsync(reqUrl);
 results = json.parse(xmlHttp.responseText);
+console.log(results);
 
 function isOpposingView(index)
 {
