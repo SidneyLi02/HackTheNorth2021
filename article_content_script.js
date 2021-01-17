@@ -1,4 +1,4 @@
-// domainName and title and arrOpposing should come from storage
+// domainName and title and arrAgreeing should come from storage
 
 function httpGetAsync(theUrl, callback)
 {
@@ -16,10 +16,23 @@ req_url = 'https://www.googleapis.com/customsearch/v1?cx=b84518462114f3218&exclu
 
 results = json.parse(httpGetAsync(req_url));
 
+function isOpposingView(index)
+{
+    let acc = true;
+    for (let i = 0; i<arrAgreeing.length; i++) {
+        if (results.items[index].displayLink.includes(arrAgreeing[i])) {
+            acc = acc && false;
+        } else {
+            acc = acc && true;
+        }
+    }
+    return acc;
+}
+
 const arr = [];
-for (let i = 1; i<=10; i++) {
-    if (condition) { // condition is placeholder for checking if the webpage is opposing view
-        arr.push(results.items[i].formattedUrl);
+for (let i = 1; i<=50; i++) {
+    if (isOpposingView(i)) { // checking if the webpage is opposing view
+        arr.push(results.items[i].link);
     }
 }
 
