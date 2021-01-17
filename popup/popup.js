@@ -12,12 +12,17 @@ const run = () => {
 
 
 chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-    chrome.tabs.sendMessage(tabs[0].id, {type: "displayOtherArticles"}, function(response) {
-        arrAgreeing = response.agree;
-        arrOpposing = response.oppose;
+    var port = chrome.tabs.connect(tabs[0].id, {name: "otherArticles"});
+    port.postMessage({type: "displayOtherArticles"});
+    port.onMessage.addListener(function(msg) {
+        if (msg.type == "sentResults") {
+            arrAgreeing = response.agree;
+            arrOpposing = response.oppose;
+            console.log("finished request");
+        }
     });
 });
-  
+ 
     findOppose.addEventListener("click", () => {
         if (findSimilar.classList.contains("noClick")) {
             findSimilar.classList.remove("noClick")
@@ -47,6 +52,7 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
             var linkText = document.createTextNode(titleText);
             a.appendChild(linkText);
             a.href = articleLink;
+            a.setAttribute('target', '_blank');
             itemList.appendChild(a)
             newsLinks.appendChild(itemList)
         }
@@ -80,6 +86,7 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
             var linkText = document.createTextNode(titleText);
             a.appendChild(linkText);
             a.href = articleLink;
+            a.setAttribute('target', '_blank');
             itemList.appendChild(a)
             newsLinks.appendChild(itemList)
         }

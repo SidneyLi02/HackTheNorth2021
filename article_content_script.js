@@ -23,6 +23,7 @@ function httpGetAsync(theUrl)
 */
 
 
+
 //var reqUrl = 'https://www.googleapis.com/customsearch/v1?cx=b84518462114f3218&excludeTerms='+(domainName)+'&lr=%22lang_en%22&q='+(title)+
 //'&key=AIzaSyDAFluHuEtmYiWUpN6uKWgIQSuWXLmtDsA&cxb84518462114f3218';
 //const testingFunc = (a) => console.log(a);
@@ -75,16 +76,19 @@ for (let i = 1; i<=50; i++) {
 }
 obtainedResults = true;
 }
-*/
 
-var port = chrome.runtime.connect({name: "otherArticles"});
-port.onMessage.addListener(function(msg) {
-    if (msg.type == "displayOtherArticles") {
-        if (obtainedResults == true) {
-            port.postMessage({type: "sentResults", agree: agreeArr, oppose: oppArr});
+
+
+chrome.runtime.onConnect.addListener(function(port) {
+    console.assert(port.name == "otherArticles");
+    port.onMessage.addListener(function(msg) {
+        if (msg.type == "displayOtherArticles") {
+            if (obtainedResults == true) {
+                port.postMessage({type: "sentResults", agree: agreeArr, oppose: oppArr});
+            }
         }
-    }
-});
+    });
+  });
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
@@ -99,6 +103,7 @@ chrome.runtime.onMessage.addListener(
             }
             title = request.title;
             domainName = request.domain;
+
             console.log("doing fetch");
             fetch('https://www.googleapis.com/customsearch/v1?cx=b84518462114f3218&excludeTerms='+(domainName)+'&lr=%22lang_en%22&q='+(title)+
             '&key=AIzaSyDAFluHuEtmYiWUpN6uKWgIQSuWXLmtDsA&cxb84518462114f3218')
@@ -126,8 +131,3 @@ chrome.runtime.onMessage.addListener(
 
   })
   .catch(err => console.log(err));
-          default:
-              console.log("Unrecognized message: ", request);
-      }
-    }
-  );
