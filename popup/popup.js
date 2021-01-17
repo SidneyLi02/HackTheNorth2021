@@ -28,6 +28,7 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         if (findSimilar.classList.contains("noClick")) {
             findSimilar.classList.remove("noClick")
         }
+        //findOppose.classList.add("noClick");
         // popupBody.classList.add("fadeOut");
 
         resultsBody.classList.remove("fadeOut");
@@ -36,7 +37,6 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         if (initState === 0 && arrAgreeing.length === 0) {
             var defaultText = document.createTextNode("There is none.");
             newsLinks.appendChild(defaultText)
-            findOppose.classList.add("noClick");
         }
 
         if (similarToggle) {
@@ -71,6 +71,7 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         if (findOppose.classList.contains("noClick")) {
             findOppose.classList.remove("noClick");
         }
+        //findSimilar.classList.add("noClick")
         //popupBody.classList.add("fadeOut");
         resultsBody.classList.remove("fadeOut");
 
@@ -79,7 +80,6 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         if (initState === 0 && arrOpposing.length === 0) {
             var defaultText = document.createTextNode("There is none.");
             newsLinks.appendChild(defaultText)
-            findSimilar.classList.add("noClick");
         }
 
         if (opposeToggle) {
