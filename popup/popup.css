@@ -2,10 +2,18 @@
 
 h1 {
     font-family: 'Bebas Neue', cursive;
+    font-size: 2.5em;
+}
+
+h2 {
+    font-size: 1em;
+    padding-bottom: 10px;
 }
 
 body {
     padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
     text-align: center;
     background-color: #f0f0f0;
 }
