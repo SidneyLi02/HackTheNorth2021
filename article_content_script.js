@@ -29,11 +29,31 @@ function isOpposingView(index)
     return acc;
 }
 
-const arr = [];
+function isSameView(index)
+{
+    let acc = true;
+    for (let i = 0; i<arrOpposing.length; i++) {
+        if (results.items[index].displayLink.includes(arrOpposing[i])) {
+            acc = acc && true;
+        } else {
+            acc = acc && false;
+        }
+    }
+    return acc;
+}
+
+const oppArr = [];
 for (let i = 1; i<=50; i++) {
     if (isOpposingView(i)) { // checking if the webpage is opposing view
-        arr.push(results.items[i].link);
+        oppArr.push({link: results.items[i].link, title: results.items[i].title});
     }
 }
 
-// send arr to storage
+const agreeArr = [];
+for (let i = 1; i<=50; i++) {
+    if (isSameView(i)) { // checking if the webpage is same view
+        agreeArr.push({link: results.items[i].link, title: results.items[i].title});
+    }
+}
+
+// send oppArr and agreeArr to storage
