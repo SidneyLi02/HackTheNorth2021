@@ -3,27 +3,8 @@ var arrOpposing;
 var arrAgreeing;
 var domainName;
 var title;
-
-chrome.runtime.onMessage.addListener(
-    function(request, sender, sendResponse) {
-      switch(request.type) {
-          case "sendArticleInfo":
-            if (request.bias == "leftWing") {
-                arrAgreeing = request.leftWing;
-                arrOpposing = request.rightWing;
-            } else {
-                arrAgreeing = request.rightWing;
-                arrOpposing = request.lefttWing;
-            }
-            title = request.title;
-            domainName = request.domain;
-          case "displayOtherArticles":
-              sendResponse({agree: agreeArr, oppose: oppArr});
-          default:
-              console.log("Unrecognized message: ", request);
-      }
-    }
-  );
+let agreeArr = [];
+let oppArr = [];
 
 function httpGetAsync(theUrl, callback)
 {
@@ -71,16 +52,35 @@ function isSameView(index)
     return acc;
 }
 
-const oppArr = [];
+
 for (let i = 1; i<=50; i++) {
     if (isOpposingView(i)) { // checking if the webpage is opposing view
         oppArr.push({link: results.items[i].link, title: results.items[i].title});
     }
 }
-
-const agreeArr = [];
 for (let i = 1; i<=50; i++) {
     if (isSameView(i)) { // checking if the webpage is same view
         agreeArr.push({link: results.items[i].link, title: results.items[i].title});
     }
 }
+
+chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+      switch(request.type) {
+          case "sendArticleInfo":
+            if (request.bias == "leftWing") {
+                arrAgreeing = request.leftWing;
+                arrOpposing = request.rightWing;
+            } else {
+                arrAgreeing = request.rightWing;
+                arrOpposing = request.lefttWing;
+            }
+            title = request.title;
+            domainName = request.domain;
+          case "displayOtherArticles":
+              sendResponse({agree: agreeArr, oppose: oppArr});
+          default:
+              console.log("Unrecognized message: ", request);
+      }
+    }
+  );
