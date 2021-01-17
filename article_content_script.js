@@ -18,7 +18,7 @@ chrome.runtime.onMessage.addListener(
             title = request.title;
             domainName = request.domain;
           case "displayOtherArticles":
-              sendResponse({agree: arrAgreeing, oppose: arrOpposing});
+              sendResponse({agree: agreeArr, oppose: oppArr});
           default:
               console.log("Unrecognized message: ", request);
       }
@@ -37,11 +37,13 @@ function httpGetAsync(theUrl, callback)
     }
 }
 
-const reqUrl = 'https://www.googleapis.com/customsearch/v1?cx=b84518462114f3218&excludeTerms='+(domainName)+'&lr=%22lang_en%22&q='+(title)+
+let reqUrl = 'https://www.googleapis.com/customsearch/v1?cx=b84518462114f3218&excludeTerms='+(domainName)+'&lr=%22lang_en%22&q='+(title)+
 '&key=AIzaSyDAFluHuEtmYiWUpN6uKWgIQSuWXLmtDsA&cxb84518462114f3218';
 
 httpGetAsync(reqUrl);
 results = JSON.parse(xmlHttp.responseText);
+console.log("Api has been called");
+console.log(results);
 
 function isOpposingView(index)
 {
@@ -82,22 +84,3 @@ for (let i = 1; i<=50; i++) {
         agreeArr.push({link: results.items[i].link, title: results.items[i].title});
     }
 }
-
-/*
-function connect() {
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {
-            agreeArr: agreeArr,
-            oppArr: oppArr
-        });
-      });
-}
-connect();
-*/
-
-/*chrome.runtime.sendMessage({agreArr: agreeArr, oppArr: oppArr, greeting: "hello"}, function(response) {
-    console.log(response.farewell);
-});
-// send oppArr and agreeArr to storage
-
-*/
