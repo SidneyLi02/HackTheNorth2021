@@ -11,8 +11,8 @@ function isOpposingView(index, arr, results, domain)
             acc = acc && true;
         }
     }
-    return acc;
-    //return true;
+    //return acc;
+    return true;
 }
 
 function isSameView(index, arr, results, domain)
@@ -25,8 +25,8 @@ function isSameView(index, arr, results, domain)
             acc = acc && false;
         }
     }
-    return acc;
-    //return true;
+    //return acc;
+    return true;
 }
 
 
@@ -52,15 +52,17 @@ chrome.runtime.onMessage.addListener(
             if (request.bias == "leftWing") {
                 arrAgreeing = request.leftWing;
                 arrOpposing = request.rightWing;
+                searchId = "778a2b28a14fec18e"
             } else {
                 arrAgreeing = request.rightWing;
                 arrOpposing = request.lefttWing;
+                searchId = "02b3a1274e7c15efe";
             }
             title = escape(request.title);
             domainName = escape(request.domain);
-
+//b84518462114f3218&
             console.log("doing fetch");
-            fetch(`https://www.googleapis.com/customsearch/v1?cx=b84518462114f3218&lr=%22lang_en%22&q=${title}&key=AIzaSyAN9T4IMNPdjBzHM6lEjHgSQ71eQCc3tfA`)
+            fetch(`https://www.googleapis.com/customsearch/v1?cx=${searchId}&lr=%22lang_en%22&q=${title}&key=AIzaSyA79DqRoWL-84GkMabc47xTt2f_rWI3CVE`)
   .then(response => response.json())
   .then(data => {
     console.log(data);
