@@ -1,8 +1,34 @@
-var leftWing = ['cnn', 'msnbc', 'theguardian', 'slate', 'mediaite', 'thedailybeast', 'huffpost'];
-var rightWing = ['foxnews', 'nypost', 'wsj', 'nationalreview', 'hughhewitt', 'washingtontimes'];
-
-//var leftWing = ['www.cnn.com', 'www.msnbc.com', 'www.theguardian.com'];
-//var rightwing = ['www.foxnews.com', 'nypost.com', 'www.wsj.com'];
+var leftWing = ['cnn.com',
+'msnbc.com',
+'theguardian.com',
+'slate.com',
+'mediaite.com',
+'thedailybeast.com',
+'huffpost.com',
+'newyorker.com',
+'dailyshow.com',
+'buzzfeed.com',
+'nbcnews.com',
+'pbs.com',
+'economist.com',
+'bloomberg.com',
+'usatoday.com',
+'abcnews.go.com'
+];
+var rightWing = ['foxnews.com',
+'nypost.com',
+'wsj.com',
+'nationalreview.com',
+'hughhewitt.com',
+'washingtontimes.com',
+'drudgereport.com',
+'breitbart.com',
+'rushlimbaugh.com',
+'glennbeck.com',
+'nationalreview.com',
+'theblaze.com',
+'redstate.com'
+];
 
 var bias;
 var title;
