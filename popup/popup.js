@@ -16,8 +16,8 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     port.postMessage({type: "displayOtherArticles"});
     port.onMessage.addListener(function(msg) {
         if (msg.type == "sentResults") {
-            arrAgreeing = response.agree;
-            arrOpposing = response.oppose;
+            arrAgreeing = msg.agree;
+            arrOpposing = msg.oppose;
             console.log("finished request");
         }
     });
