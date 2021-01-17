@@ -1,6 +1,6 @@
 // domainName and title and arrAgreeing should come from storage
 
-function httpGetAsync(theUrl, callback)
+/*function httpGetAsync(theUrl, callback)
 {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() { 
@@ -29,11 +29,48 @@ function isOpposingView(index)
     return acc;
 }
 
-const arr = [];
+function isSameView(index)
+{
+    let acc = true;
+    for (let i = 0; i<arrOpposing.length; i++) {
+        if (results.items[index].displayLink.includes(arrOpposing[i])) {
+            acc = acc && true;
+        } else {
+            acc = acc && false;
+        }
+    }
+    return acc;
+}
+
+const oppArr = [];
 for (let i = 1; i<=50; i++) {
     if (isOpposingView(i)) { // checking if the webpage is opposing view
-        arr.push(results.items[i].link);
+        oppArr.push({link: results.items[i].link, title: results.items[i].title});
     }
 }
 
+const agreeArr = [];
+for (let i = 1; i<=50; i++) {
+    if (isSameView(i)) { // checking if the webpage is same view
+        agreeArr.push({link: results.items[i].link, title: results.items[i].title});
+    }
+}
+
+
 // send arr to storage
+*/
+
+chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+      console.log(request.domain);
+      if (request.bias == "leftWing") {
+        sendResponse({farewell: "Trump sucks"});
+      }
+      else {
+          sendResponse({farewell: "Trump rules"});
+      }
+    }
+  );
+
+// send oppArr and agreeArr to storage
+
