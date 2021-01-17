@@ -1,5 +1,5 @@
-var leftWing = ['cnn', 'msnbc', 'theguardian'];
-var rightWing = ['foxnews', 'nypost', 'wsj'];
+var leftWing = ['cnn', 'msnbc', 'theguardian', 'slate', 'mediaite', 'thedailybeast', 'huffpost'];
+var rightWing = ['foxnews', 'nypost', 'wsj', 'nationalreview', 'hughhewitt', 'washingtontimes'];
 
 //var leftWing = ['www.cnn.com', 'www.msnbc.com', 'www.theguardian.com'];
 //var rightwing = ['www.foxnews.com', 'nypost.com', 'www.wsj.com'];
