@@ -5,6 +5,7 @@ var domainName;
 var title;
 let agreeArr = [];
 let oppArr = [];
+var obtainedResults = false;
 
 function httpGetAsync(theUrl)
 {
@@ -67,7 +68,18 @@ for (let i = 1; i<=50; i++) {
         agreeArr.push({link: results.items[i].link, title: results.items[i].title});
     }
 }
+obtainedResults = true;
 }
+
+var port = chrome.runtime.connect({name: "otherArticles"});
+port.onMessage.addListener(function(msg) {
+    if (msg.type == "displayOtherArticles") {
+        if (obtainedResults == true) {
+            port.postMessage({type: "sentResults", agree: agreeArr, oppose: oppArr});
+        }
+    }
+});
+
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
       switch(request.type) {
@@ -81,8 +93,6 @@ chrome.runtime.onMessage.addListener(
             }
             title = request.title;
             domainName = request.domain;
-          case "displayOtherArticles":
-              sendResponse({agree: agreeArr, oppose: oppArr});
           default:
               console.log("Unrecognized message: ", request);
       }
