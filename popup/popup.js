@@ -7,9 +7,10 @@ const run = () => {
     const newsLinks = document.querySelector(".newsLinks");
     var opposeToggle = false;
     var similarToggle = false;
-    let arrAgreeing;
-    let arrOpposing;
+    var arrAgreeing;
+    var arrOpposing;
 
+<<<<<<< HEAD
     chrome.runtime.onMessage.addListener(
         function(request, sender, sendResponse) {
           arrAgreeing = request.agreeArr;
@@ -17,6 +18,16 @@ const run = () => {
         }
       );
      
+=======
+
+chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    chrome.tabs.sendMessage(tabs[0].id, {type: "displayOtherArticles"}, function(response) {
+        arrAgreeing = response.agree;
+        arrOpposing = response.oppose;
+    });
+});
+  
+>>>>>>> eb685da66ea4ece7c03d75cfcda218a53bd69d3b
     findOppose.addEventListener("click", () => {
         if (findSimilar.classList.contains("noClick")) {
             findSimilar.classList.remove("noClick")
