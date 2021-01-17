@@ -1,6 +1,6 @@
 // domainName and title and arrAgreeing should come from storage
 
-function httpGetAsync(theUrl, callback)
+/*function httpGetAsync(theUrl, callback)
 {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() { 
@@ -56,4 +56,21 @@ for (let i = 1; i<=50; i++) {
     }
 }
 
+
+// send arr to storage
+*/
+
+chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+      console.log(request.domain);
+      if (request.bias == "leftWing") {
+        sendResponse({farewell: "Trump sucks"});
+      }
+      else {
+          sendResponse({farewell: "Trump rules"});
+      }
+    }
+  );
+
 // send oppArr and agreeArr to storage
+
