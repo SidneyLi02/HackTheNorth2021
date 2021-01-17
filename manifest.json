@@ -1,5 +1,5 @@
 {
-    "name": "news-extension",
+    "name": "Bye Bye Bias",
     "version": "0.0.1",
     "description": "lorem ipsum",
     "manifest_version": 2,
@@ -10,12 +10,5 @@
     "page_action": {
         "default_popup": "popup/popup.html"
     },
-    "permissions": ["tabs", "activeTab", "declarativeContent", "storage"],
-    "content_scripts": [
-        {
-            "matches": ["http://*/*"],
-            "js": ["article_content_script.js"]
-        }
-    ]
-
+    "permissions": ["tabs", "activeTab", "declarativeContent", "storage", "http://*/*", "https://*/*"],
 }
