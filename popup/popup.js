@@ -9,6 +9,7 @@ const run = () => {
     var similarToggle = false;
     var arrAgreeing;
     var arrOpposing;
+    var initState = 0;
 
 
 chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
@@ -33,9 +34,15 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         resultsBody.classList.remove("fadeOut");
         opposeToggle = true;
 
+        if (initState === 0 && arrAgreeing.length === 0) {
+            var defaultText = document.createTextNode("There is none.");
+            newsLinks.appendChild(defaultText)
+        }
+
         if (similarToggle) {
             newsLinks.innerHTML = "";
             similarToggle = false;
+            initState = 0;
         }
 
         // adding 
@@ -55,6 +62,8 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
             a.setAttribute('target', '_blank');
             itemList.appendChild(a)
             newsLinks.appendChild(itemList)
+
+            initState++;
         }
     })
     
@@ -68,9 +77,15 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 
         similarToggle = true;
 
+        if (initState === 0 && arrOpposing.length === 0) {
+            var defaultText = document.createTextNode("There is none.");
+            newsLinks.appendChild(defaultText)
+        }
+
         if (opposeToggle) {
             newsLinks.innerHTML = "";
             opposeToggle = false;
+            initState = 0;
         }
 
         if (arrOpposing.length != 0) {
@@ -89,6 +104,8 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
             a.setAttribute('target', '_blank');
             itemList.appendChild(a)
             newsLinks.appendChild(itemList)
+
+            initState++;
         }
     })
 
