@@ -75,7 +75,7 @@ for (let i = 1; i<=50; i++) {
     }
 }
 
-
+/*
 function connect() {
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         chrome.tabs.sendMessage(tabs[0].id, {
@@ -85,5 +85,7 @@ function connect() {
       });
 }
 connect();
-// send oppArr and agreeArr to storage
+*/
 
+chrome.runtime.sendMessage({agreArr: agreeArr, oppArr: oppArr});
+// send oppArr and agreeArr to storage

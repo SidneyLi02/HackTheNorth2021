@@ -5,6 +5,13 @@ const run = () => {
     const findOppose = document.querySelectorAll('.extension-body button')[0];
     const findSimilar = document.querySelectorAll('.extension-body button')[1];
 
+    chrome.runtime.onMessage.addListener(
+        function(request, sender, sendResponse) {
+          arrAgreeing = request.arrAgreeing;
+          arrOpposing = request.arrOpposing;
+        }
+      );
+      
     findOppose.addEventListener("click", () => {
         if (findSimilar.classList.contains("noClick")) {
             findSimilar.classList.remove("noClick")
