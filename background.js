@@ -85,11 +85,8 @@ function connect() {
             title: title,
             domain: domain,
             bias: bias,
-            leftWing: leftWing;
-            rightWing: rightWing;
-        }, 
-        function(response) {
-          console.log(response.farewell);
+            leftWing: leftWing,
+            rightWing: rightWing
         });
       });
 }
