@@ -17,5 +17,6 @@
         "default_popup": "popup/popup.html",
         "default_icon": "./icon16x16.png"
     },
-    "permissions": ["tabs", "activeTab", "declarativeContent", "storage", "http://*/*", "https://*/*"]
+    "permissions": ["tabs", "activeTab", "declarativeContent", "storage", "http://*/*", "https://*/*"],
+    "content_security_policy": "script-src 'self' https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js; object-src 'self'"
 }
