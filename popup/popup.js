@@ -28,15 +28,19 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         if (findSimilar.classList.contains("noClick")) {
             findSimilar.classList.remove("noClick")
         }
-        //findOppose.classList.add("noClick");
         // popupBody.classList.add("fadeOut");
 
         resultsBody.classList.remove("fadeOut");
         opposeToggle = true;
 
         if (initState === 0 && arrAgreeing.length === 0) {
-            var defaultText = document.createTextNode("There is none.");
-            newsLinks.appendChild(defaultText)
+
+            let b = document.createElement('a');
+            let defaultText = document.createTextNode("No search results were found.");
+            b.appendChild(defaultText);
+            b.href = "https://www.factcheck.org/";
+            newsLinks.appendChild(b)
+            findOppose.classList.add("noClick");
         }
 
         if (similarToggle) {
@@ -71,15 +75,19 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         if (findOppose.classList.contains("noClick")) {
             findOppose.classList.remove("noClick");
         }
-        //findSimilar.classList.add("noClick")
         //popupBody.classList.add("fadeOut");
         resultsBody.classList.remove("fadeOut");
 
         similarToggle = true;
 
         if (initState === 0 && arrOpposing.length === 0) {
-            var defaultText = document.createTextNode("There is none.");
-            newsLinks.appendChild(defaultText)
+
+            let b = document.createElement('a');
+            let defaultText = document.createTextNode("No search results were found.");
+            b.appendChild(defaultText);
+            b.href = "https://www.factcheck.org/";
+            newsLinks.appendChild(b)
+            findSimilar.classList.add("noClick");
         }
 
         if (opposeToggle) {
