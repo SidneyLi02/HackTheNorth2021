@@ -11,17 +11,18 @@ const run = () => {
     var arrOpposing;
 
 
-    chrome.runtime.onConnect.addListener(function(port) {
-        console.assert(port.name == "otherArticles");
-        port.postMessage({type: "displayOtherArticles"});
-        port.onMessage.addListener(function(msg) {
-            if (msg.type == "sentResults") {
-                arrAgreeing = response.agree;
-                arrOpposing = response.oppose;
-            }
-        })
-    })
-  
+chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    var port = chrome.tabs.connect(tabs[0].id, {name: "otherArticles"});
+    port.postMessage({type: "displayOtherArticles"});
+    port.onMessage.addListener(function(msg) {
+        if (msg.type == "sentResults") {
+            arrAgreeing = response.agree;
+            arrOpposing = response.oppose;
+            console.log("finished request");
+        }
+    });
+});
+ 
     findOppose.addEventListener("click", () => {
         if (findSimilar.classList.contains("noClick")) {
             findSimilar.classList.remove("noClick")

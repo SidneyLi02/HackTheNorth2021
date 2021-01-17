@@ -7,6 +7,7 @@ let agreeArr = [];
 let oppArr = [];
 var obtainedResults = false;
 
+
 function httpGetAsync(theUrl)
 {
       xmlHttp.onreadystatechange = function() { 
@@ -71,14 +72,17 @@ for (let i = 1; i<=50; i++) {
 obtainedResults = true;
 }
 
-var port = chrome.runtime.connect({name: "otherArticles"});
-port.onMessage.addListener(function(msg) {
-    if (msg.type == "displayOtherArticles") {
-        if (obtainedResults == true) {
-            port.postMessage({type: "sentResults", agree: agreeArr, oppose: oppArr});
+
+chrome.runtime.onConnect.addListener(function(port) {
+    console.assert(port.name == "otherArticles");
+    port.onMessage.addListener(function(msg) {
+        if (msg.type == "displayOtherArticles") {
+            if (obtainedResults == true) {
+                port.postMessage({type: "sentResults", agree: agreeArr, oppose: oppArr});
+            }
         }
-    }
-});
+    });
+  });
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
